@@ -1073,8 +1073,8 @@ public class Program
                 {
                     Console.WriteLine("Id: " + reader.GetInt32(0));
                     Console.WriteLine("Name: " + reader.GetString(1));
-                    Console.WriteLine("Location Id: " + reader.GetString(2));
-                    Console.WriteLine("Manager Id: " + reader.GetString(3));
+                    Console.WriteLine("Location Id: " + reader.GetInt32(2));
+                    Console.WriteLine("Manager Id: " + reader.GetInt32(3));
                 }
             }
             else
@@ -1262,8 +1262,8 @@ public class Program
                 {
                     Console.WriteLine("Id: " + reader.GetInt32(0));
                     Console.WriteLine("Name: " + reader.GetString(1));
-                    Console.WriteLine("Location Id: " + reader.GetString(2));
-                    Console.WriteLine("Manager Id: " + reader.GetString(3));
+                    Console.WriteLine("Location Id: " + reader.GetInt32(2));
+                    Console.WriteLine("Manager Id: " + reader.GetInt32(3));
                 }
             }
             else
@@ -1372,7 +1372,7 @@ public class Program
             {
                 while (reader.Read())
                 {
-                    Console.WriteLine("Id: " + reader.GetInt32(0));
+                    Console.WriteLine("Id: " + reader.GetString(0));
                     Console.WriteLine("Title: " + reader.GetString(1));
                     Console.WriteLine("Min Salary: " + reader.GetInt32(2));
                     Console.WriteLine("Max Salary: " + reader.GetInt32(3));
@@ -1424,7 +1424,7 @@ public class Program
 
             SqlParameter pMaxSalary = new SqlParameter();
             pMaxSalary.ParameterName = "@max_salary";
-            pMaxSalary.SqlDbType = System.Data.SqlDbType.VarChar;
+            pMaxSalary.SqlDbType = System.Data.SqlDbType.Int;
             pMaxSalary.Value = max_salary;
             sqlCommand.Parameters.Add(pMaxSalary);
 
@@ -1462,7 +1462,7 @@ public class Program
         InsertJobs(inputTitle, inputMinSalary, inputMaxSalary);
     }
 
-    public static void UpdateJobs(int job_id, string title, int min_salary, int max_salary)
+    public static void UpdateJobs(string job_id, string title, int min_salary, int max_salary)
     {
         _connection = new SqlConnection(_ConnectionString);
 
@@ -1477,7 +1477,7 @@ public class Program
         {
             SqlParameter pJobId = new SqlParameter();
             pJobId.ParameterName = "@location_id";
-            pJobId.SqlDbType = System.Data.SqlDbType.Int;
+            pJobId.SqlDbType = System.Data.SqlDbType.Char;
             pJobId.Value = job_id;
             sqlCommand.Parameters.Add(job_id);
 
@@ -1495,7 +1495,7 @@ public class Program
 
             SqlParameter pMaxSalary = new SqlParameter();
             pMaxSalary.ParameterName = "@max_salary";
-            pMaxSalary.SqlDbType = System.Data.SqlDbType.VarChar;
+            pMaxSalary.SqlDbType = System.Data.SqlDbType.Int;
             pMaxSalary.Value = max_salary;
             sqlCommand.Parameters.Add(pMaxSalary);
 
@@ -1520,7 +1520,7 @@ public class Program
 
     public static void UpdateIntoJob()
     {
-        int inputJobId = Int32.Parse(Console.ReadLine());
+        string inputJobId = Console.ReadLine();
         Console.WriteLine("Update Id");
         string inputTitle = Console.ReadLine();
         Console.WriteLine("Update Title: ");
@@ -1532,7 +1532,7 @@ public class Program
 
     }
 
-    public static void DeleteJob(int job_id)
+    public static void DeleteJob(string job_id)
     {
         _connection = new SqlConnection(_ConnectionString);
 
@@ -1547,7 +1547,7 @@ public class Program
         {
             SqlParameter pJobId = new SqlParameter();
             pJobId.ParameterName = "@job_id";
-            pJobId.SqlDbType = System.Data.SqlDbType.Int;
+            pJobId.SqlDbType = System.Data.SqlDbType.Char;
             pJobId.Value = job_id;
             sqlCommand.Parameters.Add(pJobId);
 
@@ -1577,7 +1577,7 @@ public class Program
         DeleteDepartment(inputId);
     }
 
-    public static void GetJobById(int job_id)
+    public static void GetJobById(string job_id)
     {
         _connection = new SqlConnection(_ConnectionString);
 
@@ -1594,7 +1594,7 @@ public class Program
             {
                 while (reader.Read())
                 {
-                    Console.WriteLine("Id: " + reader.GetInt32(0));
+                    Console.WriteLine("Id: " + reader.GetString(0));
                     Console.WriteLine("Title: " + reader.GetString(1));
                     Console.WriteLine("Min Salary: " + reader.GetInt32(2));
                     Console.WriteLine("Max Salary: " + reader.GetInt32(3));
@@ -1616,7 +1616,7 @@ public class Program
 
     public static void SearchJobById()
     {
-        int inputId = Int32.Parse(Console.ReadLine());
+        string inputId = Console.ReadLine();
         Console.WriteLine("Cari job Id: ");
         GetJobById(inputId);
     }
@@ -2034,14 +2034,18 @@ public class Program
             {
                 while (reader.Read())
                 {
+                    string phone_number = reader.IsDBNull(4) ? "N/A" : reader.GetString(4);
+                    int salary = reader.IsDBNull(6) ? 0 : reader.GetInt32(6);
+                    decimal comission_pct = reader.IsDBNull(7) ? 0 : reader.GetDecimal(7);
+
                     Console.WriteLine("ID: " + reader.GetInt32(0));
                     Console.WriteLine("First Name: " + reader.GetString(1));
                     Console.WriteLine("Last Name: " + reader.GetString(2));
                     Console.WriteLine("Email: " + reader.GetString(3));
-                    Console.WriteLine("Phone Number: " + reader.GetString(4));
+                    Console.WriteLine("Phone Number: " + phone_number);
                     Console.WriteLine("Hire Date: " + reader.GetDateTime(5));
-                    Console.WriteLine("Salary: " + reader.GetInt32(6));
-                    Console.WriteLine("Comission PCT: " + reader.GetInt32(7));
+                    Console.WriteLine("Salary: " + salary);
+                    Console.WriteLine("Comission PCT: " + comission_pct);
 
                 }
             }
@@ -2060,7 +2064,7 @@ public class Program
 
     }
 
-    public static void InsertEmployees(string first_name, string last_name, string email, string phone_number, DateTime hire_date, int salary, int comission_pct)
+    public static void InsertEmployees(string first_name, string last_name, string email, string phone_number, DateTime hire_date, int salary, decimal comission_pct)
     {
         _connection = new SqlConnection(_ConnectionString);
 
@@ -2115,7 +2119,7 @@ public class Program
 
             SqlParameter pComissionPCT = new SqlParameter();
             pComissionPCT.ParameterName = "@comission_pct";
-            pComissionPCT.SqlDbType = System.Data.SqlDbType.Int;
+            pComissionPCT.SqlDbType = System.Data.SqlDbType.Decimal;
             pComissionPCT.Value = comission_pct;
             sqlCommand.Parameters.Add(pComissionPCT);
 
@@ -2156,12 +2160,12 @@ public class Program
         Console.Write("Tambah Hire Date: ");
         int inputSalary = Int32.Parse(Console.ReadLine());
         Console.WriteLine("Tambah Salary: ");
-        int inputComission = Int32.Parse(Console.ReadLine());
+        decimal inputComission = decimal.Parse(Console.ReadLine());
         Console.WriteLine("Tambah Commision PCT: ");
         InsertEmployees(inputFirstName, inputLastName, inputEmail, inputPhone, inputHireDate, inputSalary, inputComission);
     }
 
-    public static void UpdateEmployees(int employee_id, string first_name, string last_name, string email, string phone_number, DateTime hire_date, int salary, int comission_pct)
+    public static void UpdateEmployees(int employee_id, string first_name, string last_name, string email, string phone_number, DateTime hire_date, int salary, decimal comission_pct)
     {
         _connection = new SqlConnection(_ConnectionString);
 
@@ -2218,7 +2222,7 @@ public class Program
 
             SqlParameter pComissionPCT = new SqlParameter();
             pComissionPCT.ParameterName = "@comission_pct";
-            pComissionPCT.SqlDbType = System.Data.SqlDbType.Int;
+            pComissionPCT.SqlDbType = System.Data.SqlDbType.Decimal;
             pComissionPCT.Value = comission_pct;
             sqlCommand.Parameters.Add(pComissionPCT);
 
@@ -2258,7 +2262,7 @@ public class Program
         Console.Write("Tambah Hire Date: ");
         int inputSalary = Int32.Parse(Console.ReadLine());
         Console.WriteLine("Tambah Salary: ");
-        int inputComission = Int32.Parse(Console.ReadLine());
+        decimal inputComission = decimal.Parse(Console.ReadLine());
         Console.WriteLine("Tambah Commision PCT: ");
         UpdateEmployees(inputEmployeeId, inputFirstName, inputLastName, inputEmail, inputPhone, inputHireDate, inputSalary, inputComission);
 
@@ -2326,14 +2330,18 @@ public class Program
             {
                 while (reader.Read())
                 {
+                    string phone_number = reader.IsDBNull(4) ? "N/A" : reader.GetString(4);
+                    int salary = reader.IsDBNull(6) ? 0 : reader.GetInt32(6);
+                    decimal comission_pct = reader.IsDBNull(7) ? 0 : reader.GetDecimal(7);
+
                     Console.WriteLine("ID: " + reader.GetInt32(0));
                     Console.WriteLine("First Name: " + reader.GetString(1));
                     Console.WriteLine("Last Name: " + reader.GetString(2));
                     Console.WriteLine("Email: " + reader.GetString(3));
-                    Console.WriteLine("Phone Number: " + reader.GetString(4));
+                    Console.WriteLine("Phone Number: " + phone_number);
                     Console.WriteLine("Hire Date: " + reader.GetDateTime(5));
-                    Console.WriteLine("Salary: " + reader.GetInt32(6));
-                    Console.WriteLine("Comission PCT: " + reader.GetInt32(7));
+                    Console.WriteLine("Salary: " + salary);
+                    Console.WriteLine("Comission PCT: " + comission_pct);
                 }
             }
             else
@@ -2379,30 +2387,30 @@ public class Program
                 case 1:
                     Console.WriteLine("1. Tambah Employee");
                     Console.Clear();
-                    InsertIntoJobs();
+                    InsertIntoEmployees();
                     MenuEmployees();
                     break;
                 case 2:
                     Console.WriteLine("2. Update Employee");
                     Console.Clear();
-                    UpdateIntoJob();
+                    UpdateIntoEmployees();
                     MenuEmployees();
                     break;
                 case 3:
                     Console.WriteLine("3. Hapus Employee");
                     Console.Clear();
-                    DeleteByJob();
+                    DeleteByEmployee();
                     MenuEmployees();
                     break;
                 case 4:
                     Console.WriteLine("4. Search By Employee");
                     Console.Clear();
-                    SearchJobById();
+                    SearchEmployeeById();
                     MenuEmployees();
                     break;
                 case 5:
                     Console.WriteLine("5. Get All Employees");
-                    GetJobs();
+                    GetEmployees();
                     MenuEmployees();
                     break;
                 case 6:
