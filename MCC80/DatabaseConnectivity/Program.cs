@@ -14,19 +14,6 @@ public class Program
 
     public static void Main()
     {
-        //_connection = new SqlConnection(_ConnectionString);
-
-        //try
-        //{
-        //    _connection.Open();
-        //    Console.WriteLine("Koneksi berhasil");
-        //    _connection.Close();
-        //}
-        //catch
-        //{
-        //    Console.WriteLine("gagal");
-        //}
-
         MainMenu();
     }
 
@@ -54,6 +41,7 @@ public class Program
                 case 1:
                     Console.WriteLine("1. Employees");
                     Console.Clear();
+                    MenuEmployees();
                     break;
                 case 2:
                     Console.WriteLine("2. Departments");
@@ -93,7 +81,6 @@ public class Program
                     break;
                 case 8:
                     Console.WriteLine("8. Exit");
-                    Console.Clear();
                     Environment.Exit(0);
                     break;
                 default:
@@ -111,8 +98,7 @@ public class Program
 
 
 
-#region
-public static void GetRegions()
+    public static void GetRegions()
     {
         _connection = new SqlConnection( _ConnectionString);
         
@@ -343,8 +329,6 @@ public static void GetRegions()
         GetRegionById(inputId);
     }
 
-
-
     public static void MenuRegion()
     {
         Console.WriteLine("Basic Authentication Geri Marizki");
@@ -409,7 +393,7 @@ public static void GetRegions()
             MenuRegion();
         }
     }
-    #endregion
+
 
 
 
@@ -2029,4 +2013,413 @@ public static void GetRegions()
             MenuHistories();
         }
     }
+
+
+    public static void GetEmployees()
+    {
+        _connection = new SqlConnection(_ConnectionString);
+
+
+        using SqlCommand sqlCommand = new SqlCommand();
+        sqlCommand.Connection = _connection;
+        sqlCommand.CommandText = "SELECT * FROM employees";
+
+
+        try
+        {
+            _connection.Open();
+            using SqlDataReader reader = sqlCommand.ExecuteReader();
+
+            if (reader.HasRows)
+            {
+                while (reader.Read())
+                {
+                    Console.WriteLine("ID: " + reader.GetInt32(0));
+                    Console.WriteLine("First Name: " + reader.GetString(1));
+                    Console.WriteLine("Last Name: " + reader.GetString(2));
+                    Console.WriteLine("Email: " + reader.GetString(3));
+                    Console.WriteLine("Phone Number: " + reader.GetString(4));
+                    Console.WriteLine("Hire Date: " + reader.GetDateTime(5));
+                    Console.WriteLine("Salary: " + reader.GetInt32(6));
+                    Console.WriteLine("Comission PCT: " + reader.GetInt32(7));
+
+                }
+            }
+            else
+            {
+                reader.Close();
+                _connection.Close();
+
+            }
+        }
+        catch
+        {
+            Console.WriteLine("Tidak ada Employees");
+        }
+
+
+    }
+
+    public static void InsertEmployees(string first_name, string last_name, string email, string phone_number, DateTime hire_date, int salary, int comission_pct)
+    {
+        _connection = new SqlConnection(_ConnectionString);
+
+
+        using SqlCommand sqlCommand = new SqlCommand();
+        sqlCommand.Connection = _connection;
+        sqlCommand.CommandText = "INSERT INTO employees VALUES (@first_name), (@last_name), (@phone_number), (@hire_date), (@salary), (@comission_pct)";
+
+        _connection.Open();
+        using SqlTransaction transaction = _connection.BeginTransaction();
+        sqlCommand.Transaction = transaction;
+
+
+        try
+        {
+
+            SqlParameter pFName = new SqlParameter();
+            pFName.ParameterName = "@first_name";
+            pFName.SqlDbType = System.Data.SqlDbType.VarChar;
+            pFName.Value = first_name;
+            sqlCommand.Parameters.Add(pFName);
+
+            SqlParameter pLName = new SqlParameter();
+            pLName.ParameterName = "@last_name";
+            pLName.SqlDbType = System.Data.SqlDbType.Int;
+            pLName.Value = last_name;
+            sqlCommand.Parameters.Add(pLName);
+
+            SqlParameter pEmail = new SqlParameter();
+            pEmail.ParameterName = "@email";
+            pEmail.SqlDbType = System.Data.SqlDbType.VarChar;
+            pEmail.Value = email;
+            sqlCommand.Parameters.Add(pEmail);
+
+            SqlParameter pPhoneNumber = new SqlParameter();
+            pPhoneNumber.ParameterName = "@phone_number";
+            pPhoneNumber.SqlDbType = System.Data.SqlDbType.VarChar;
+            pPhoneNumber.Value = phone_number;
+            sqlCommand.Parameters.Add(pPhoneNumber);
+
+            SqlParameter pHireDate = new SqlParameter();
+            pHireDate.ParameterName = "@hire_date";
+            pHireDate.SqlDbType = System.Data.SqlDbType.DateTime;
+            pHireDate.Value = hire_date;
+            sqlCommand.Parameters.Add(pHireDate);
+
+            SqlParameter pSalary = new SqlParameter();
+            pSalary.ParameterName = "@salary";
+            pSalary.SqlDbType = System.Data.SqlDbType.Int;
+            pSalary.Value = salary;
+            sqlCommand.Parameters.Add(pSalary);
+
+            SqlParameter pComissionPCT = new SqlParameter();
+            pComissionPCT.ParameterName = "@comission_pct";
+            pComissionPCT.SqlDbType = System.Data.SqlDbType.Int;
+            pComissionPCT.Value = comission_pct;
+            sqlCommand.Parameters.Add(pComissionPCT);
+
+            int result = sqlCommand.ExecuteNonQuery();
+            if (result > 0)
+            {
+                Console.WriteLine("Berhasil");
+            }
+            else
+            {
+                Console.WriteLine("Gagal");
+            }
+
+            transaction.Commit();
+            _connection.Close();
+
+        }
+        catch
+        {
+            transaction.Rollback();
+            Console.WriteLine("Tidak ada Regions");
+        }
+
+
+    }
+
+    public static void InsertIntoEmployees()
+    {
+        string inputFirstName = Console.ReadLine();
+        Console.WriteLine("Tambah First Name: ");
+        string inputLastName = Console.ReadLine();
+        Console.WriteLine("Tambah Last Name: ");
+        string inputEmail = Console.ReadLine();
+        Console.WriteLine("Tambah Email: ");
+        string inputPhone = Console.ReadLine();
+        Console.WriteLine("Tambah Nomor HP: ");
+        DateTime inputHireDate = DateValidation();
+        Console.Write("Tambah Hire Date: ");
+        int inputSalary = Int32.Parse(Console.ReadLine());
+        Console.WriteLine("Tambah Salary: ");
+        int inputComission = Int32.Parse(Console.ReadLine());
+        Console.WriteLine("Tambah Commision PCT: ");
+        InsertEmployees(inputFirstName, inputLastName, inputEmail, inputPhone, inputHireDate, inputSalary, inputComission);
+    }
+
+    public static void UpdateEmployees(int employee_id, string first_name, string last_name, string email, string phone_number, DateTime hire_date, int salary, int comission_pct)
+    {
+        _connection = new SqlConnection(_ConnectionString);
+
+        SqlCommand sqlCommand = new SqlCommand();
+        sqlCommand.Connection = _connection;
+        sqlCommand.CommandText = "UPDATE employees SET first_name = @first_name, last_name = @last_name, email = @email, phone_number = @phone_number, hire_date = @hire_date, salary = @salary, comission_pct = @comission_pct WHERE employee_id = @employee_id";
+
+        _connection.Open();
+        SqlTransaction transaction = _connection.BeginTransaction();
+        sqlCommand.Transaction = transaction;
+        try
+        {
+            SqlParameter pEmployeeId = new SqlParameter();
+            pEmployeeId.ParameterName = "@employee_id";
+            pEmployeeId.SqlDbType = System.Data.SqlDbType.Int;
+            pEmployeeId.Value = employee_id;
+            sqlCommand.Parameters.Add(employee_id);
+
+            SqlParameter pFName = new SqlParameter();
+            pFName.ParameterName = "@first_name";
+            pFName.SqlDbType = System.Data.SqlDbType.VarChar;
+            pFName.Value = first_name;
+            sqlCommand.Parameters.Add(pFName);
+
+            SqlParameter pLName = new SqlParameter();
+            pLName.ParameterName = "@last_name";
+            pLName.SqlDbType = System.Data.SqlDbType.Int;
+            pLName.Value = last_name;
+            sqlCommand.Parameters.Add(pLName);
+
+            SqlParameter pEmail = new SqlParameter();
+            pEmail.ParameterName = "@email";
+            pEmail.SqlDbType = System.Data.SqlDbType.VarChar;
+            pEmail.Value = email;
+            sqlCommand.Parameters.Add(pEmail);
+
+            SqlParameter pPhoneNumber = new SqlParameter();
+            pPhoneNumber.ParameterName = "@phone_number";
+            pPhoneNumber.SqlDbType = System.Data.SqlDbType.VarChar;
+            pPhoneNumber.Value = phone_number;
+            sqlCommand.Parameters.Add(pPhoneNumber);
+
+            SqlParameter pHireDate = new SqlParameter();
+            pHireDate.ParameterName = "@hire_date";
+            pHireDate.SqlDbType = System.Data.SqlDbType.DateTime;
+            pHireDate.Value = hire_date;
+            sqlCommand.Parameters.Add(pHireDate);
+
+            SqlParameter pSalary = new SqlParameter();
+            pSalary.ParameterName = "@salary";
+            pSalary.SqlDbType = System.Data.SqlDbType.Int;
+            pSalary.Value = salary;
+            sqlCommand.Parameters.Add(pSalary);
+
+            SqlParameter pComissionPCT = new SqlParameter();
+            pComissionPCT.ParameterName = "@comission_pct";
+            pComissionPCT.SqlDbType = System.Data.SqlDbType.Int;
+            pComissionPCT.Value = comission_pct;
+            sqlCommand.Parameters.Add(pComissionPCT);
+
+
+            int result = sqlCommand.ExecuteNonQuery();
+            if (result > 0)
+            {
+                Console.WriteLine("Update Success");
+            }
+            else
+            {
+                Console.WriteLine("Update Fail");
+            }
+            transaction.Commit();
+            _connection.Close();
+        }
+        catch
+        {
+            transaction.Rollback();
+            Console.WriteLine("Error connecting to the database");
+        }
+    }
+
+    public static void UpdateIntoEmployees()
+    {
+        int inputEmployeeId = Int32.Parse(Console.ReadLine());
+        Console.WriteLine("Update Id");
+        string inputFirstName = Console.ReadLine();
+        Console.WriteLine("Tambah First Name: ");
+        string inputLastName = Console.ReadLine();
+        Console.WriteLine("Tambah Last Name: ");
+        string inputEmail = Console.ReadLine();
+        Console.WriteLine("Tambah Email: ");
+        string inputPhone = Console.ReadLine();
+        Console.WriteLine("Tambah Nomor HP: ");
+        DateTime inputHireDate = DateValidation();
+        Console.Write("Tambah Hire Date: ");
+        int inputSalary = Int32.Parse(Console.ReadLine());
+        Console.WriteLine("Tambah Salary: ");
+        int inputComission = Int32.Parse(Console.ReadLine());
+        Console.WriteLine("Tambah Commision PCT: ");
+        UpdateEmployees(inputEmployeeId, inputFirstName, inputLastName, inputEmail, inputPhone, inputHireDate, inputSalary, inputComission);
+
+    }
+
+    public static void DeleteEmployee(int employee_id)
+    {
+        _connection = new SqlConnection(_ConnectionString);
+
+        SqlCommand sqlCommand = new SqlCommand();
+        sqlCommand.Connection = _connection;
+        sqlCommand.CommandText = "DELETE FROM employees WHERE employee_id = @employee_id";
+
+        _connection.Open();
+        SqlTransaction transaction = _connection.BeginTransaction();
+        sqlCommand.Transaction = transaction;
+        try
+        {
+            SqlParameter pEmployeeId = new SqlParameter();
+            pEmployeeId.ParameterName = "@employee_id";
+            pEmployeeId.SqlDbType = System.Data.SqlDbType.Int;
+            pEmployeeId.Value = employee_id;
+            sqlCommand.Parameters.Add(pEmployeeId);
+
+            int result = sqlCommand.ExecuteNonQuery();
+            if (result > 0)
+            {
+                Console.WriteLine("Delete Success");
+            }
+            else
+            {
+                Console.WriteLine("Delete Fail");
+            }
+            transaction.Commit();
+            _connection.Close();
+        }
+        catch
+        {
+            transaction.Rollback();
+            Console.WriteLine("Error connecting to the database");
+        }
+    }
+
+    public static void DeleteByEmployee()
+    {
+        int inputId = Int32.Parse(Console.ReadLine());
+        Console.WriteLine("Hapus Employee Id: ");
+        DeleteEmployee(inputId);
+    }
+
+    public static void GetEmployeeById(int employee_id)
+    {
+        _connection = new SqlConnection(_ConnectionString);
+
+        SqlCommand sqlCommand = new SqlCommand();
+        sqlCommand.Connection = _connection;
+        sqlCommand.CommandText = "SELECT * FROM employees WHERE employee_id = @employee_id";
+        sqlCommand.Parameters.AddWithValue("@employee_id", employee_id);
+
+        try
+        {
+            _connection.Open();
+            SqlDataReader reader = sqlCommand.ExecuteReader();
+            if (reader.HasRows)
+            {
+                while (reader.Read())
+                {
+                    Console.WriteLine("ID: " + reader.GetInt32(0));
+                    Console.WriteLine("First Name: " + reader.GetString(1));
+                    Console.WriteLine("Last Name: " + reader.GetString(2));
+                    Console.WriteLine("Email: " + reader.GetString(3));
+                    Console.WriteLine("Phone Number: " + reader.GetString(4));
+                    Console.WriteLine("Hire Date: " + reader.GetDateTime(5));
+                    Console.WriteLine("Salary: " + reader.GetInt32(6));
+                    Console.WriteLine("Comission PCT: " + reader.GetInt32(7));
+                }
+            }
+            else
+            {
+                Console.WriteLine("tidak ada Employee");
+            }
+            reader.Close();
+            _connection.Close();
+        }
+        catch
+        {
+            Console.WriteLine("Error");
+        }
+
+    }
+
+    public static void SearchEmployeeById()
+    {
+        int inputId = Int32.Parse(Console.ReadLine());
+        Console.WriteLine("Cari Employee Id: ");
+        GetEmployeeById(inputId);
+    }
+
+    public static void MenuEmployees()
+    {
+        Console.WriteLine("Basic Authentication Geri Marizki");
+        Console.WriteLine("Pilih menu untuk masuk ke menunya");
+        Console.WriteLine("1. Tambah Employee");
+        Console.WriteLine("2. Update Employee");
+        Console.WriteLine("3. Hapus Employee");
+        Console.WriteLine("4. Search By Id Employee");
+        Console.WriteLine("5. Get All Employee");
+        Console.WriteLine("6. Main Menu");
+        Console.WriteLine("Pilih: ");
+
+        try
+        {
+            int pilihMenu = Int32.Parse(Console.ReadLine());
+
+            switch (pilihMenu)
+            {
+
+                case 1:
+                    Console.WriteLine("1. Tambah Employee");
+                    Console.Clear();
+                    InsertIntoJobs();
+                    MenuEmployees();
+                    break;
+                case 2:
+                    Console.WriteLine("2. Update Employee");
+                    Console.Clear();
+                    UpdateIntoJob();
+                    MenuEmployees();
+                    break;
+                case 3:
+                    Console.WriteLine("3. Hapus Employee");
+                    Console.Clear();
+                    DeleteByJob();
+                    MenuEmployees();
+                    break;
+                case 4:
+                    Console.WriteLine("4. Search By Employee");
+                    Console.Clear();
+                    SearchJobById();
+                    MenuEmployees();
+                    break;
+                case 5:
+                    Console.WriteLine("5. Get All Employees");
+                    GetJobs();
+                    MenuEmployees();
+                    break;
+                case 6:
+                    Console.WriteLine("MainMenu");
+                    MainMenu();
+                    break;
+                default:
+                    Console.WriteLine("Silahkan Pilih Nomor 1-6");
+                    MenuEmployees();
+                    break;
+            }
+        }
+        catch
+        {
+            Console.WriteLine("Input Hanya diantara 1-6!");
+            MenuEmployees();
+        }
+    }
+
 }
