@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "2ELcNVM8r3ahv2mSTCKe2F/6WMUZ6ltk0cTIPHenTdCC7VgRlB3Dm39D6Atb+g8aZiMjUhQOPgmEmetvSmv4bg==",
+  "dgSpecHash": "IkPQmr6vc82z+BwQ1UDnAhegjURvTSODMoQoOj25YvdU+Gdee/jDV7s6vqzzqFAeLEJVSw4mP5cjJOrqa9bhmw==",
   "success": true,
-  "projectFilePath": "D:\\C# Latihan\\MCC80\\DatabaseConnectivity\\DatabaseConnectivity.csproj",
+  "projectFilePath": "D:\\DatabaseConnectivity\\TugasDB\\MCC80\\DatabaseConnectivity\\DatabaseConnectivity.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\gerim\\.nuget\\packages\\microsoft.netcore.platforms\\3.1.0\\microsoft.netcore.platforms.3.1.0.nupkg.sha512",
     "C:\\Users\\gerim\\.nuget\\packages\\microsoft.win32.registry\\4.7.0\\microsoft.win32.registry.4.7.0.nupkg.sha512",

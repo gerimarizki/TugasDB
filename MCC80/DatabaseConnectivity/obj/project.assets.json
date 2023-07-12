@@ -475,11 +475,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\C# Latihan\\MCC80\\DatabaseConnectivity\\DatabaseConnectivity.csproj",
+      "projectUniqueName": "D:\\DatabaseConnectivity\\TugasDB\\MCC80\\DatabaseConnectivity\\DatabaseConnectivity.csproj",
       "projectName": "DatabaseConnectivity",
-      "projectPath": "D:\\C# Latihan\\MCC80\\DatabaseConnectivity\\DatabaseConnectivity.csproj",
+      "projectPath": "D:\\DatabaseConnectivity\\TugasDB\\MCC80\\DatabaseConnectivity\\DatabaseConnectivity.csproj",
       "packagesPath": "C:\\Users\\gerim\\.nuget\\packages\\",
-      "outputPath": "D:\\C# Latihan\\MCC80\\DatabaseConnectivity\\obj\\",
+      "outputPath": "D:\\DatabaseConnectivity\\TugasDB\\MCC80\\DatabaseConnectivity\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\gerim\\AppData\\Roaming\\NuGet\\NuGet.Config",
