@@ -8,83 +8,83 @@ using System.Threading.Tasks;
 
 namespace MVCArchitecture.Controllers
 {
-    public class CountryController
+    public class HistoryController
     {
-        private Country _countryModel;
-        private VCountry _countryView;
+        private History _historyModel;
+        private VHistory _historyView;
 
-        public CountryController(Country countryModel, VCountry countryView)
+        public HistoryController(History historyModel, VHistory historyView)
         {
-            _countryModel = countryModel;
-            _countryView = countryView;
+            _historyModel = historyModel;
+            _historyView = historyView;
         }
 
         public void GetAll()
         {
-            var regionResult = _countryModel.GetAll();
+            var regionResult = _historyModel.GetAll();
             if (regionResult.Count() is 0)
             {
-                _countryView.DataEmpty();
+                _historyView.DataEmpty();
             }
             else
             {
-                _countryView.GetAll(regionResult);
+                _historyView.GetAll(regionResult);
             }
         }
 
         public void Insert()
         {
-            var region = _countryView.InsertMenu();
+            var region = _historyView.InsertMenu();
 
-            var result = _countryModel.Insert(region);
+            var result = _historyModel.Insert(region);
             switch (result)
             {
                 case -1:
-                    _countryView.DataEmpty();
+                    _historyView.DataEmpty();
                     break;
                 case 0:
-                    _countryView.Fail();
+                    _historyView.Fail();
                     break;
                 default:
-                    _countryView.Success();
+                    _historyView.Success();
                     break;
             }
         }
 
         public void Update()
         {
-            var region = _countryView.UpdateMenu();
-            var result = _countryModel.Update(region);
+            var region = _historyView.UpdateMenu();
+            var result = _historyModel.Update(region);
 
             switch (result)
             {
                 case -1:
-                    _countryView.DataEmpty();
+                    _historyView.DataEmpty();
                     break;
                 case 0:
-                    _countryView.Fail();
+                    _historyView.Fail();
                     break;
                 default:
-                    _countryView.Success();
+                    _historyView.Success();
                     break;
             }
         }
 
         public void Delete()
         {
-            var region = _countryView.DeleteMenu();
-            var result = _countryModel.Delete(region);
+            var region = _historyView.DeleteMenu();
+            var result = _historyModel.Delete(region);
 
             switch (result)
             {
                 case -1:
-                    _countryView.DataEmpty();
+                    _historyView.DataEmpty();
                     break;
                 case 0:
-                    _countryView.Fail();
+                    _historyView.Fail();
                     break;
                 default:
-                    _countryView.Success();
+                    _historyView.Success();
                     break;
             }
 

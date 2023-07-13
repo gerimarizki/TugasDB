@@ -8,83 +8,83 @@ using System.Threading.Tasks;
 
 namespace MVCArchitecture.Controllers
 {
-    public class CountryController
+    public class LocationController
     {
-        private Country _countryModel;
-        private VCountry _countryView;
+        private Location _locationModel;
+        private VLocation _locationView;
 
-        public CountryController(Country countryModel, VCountry countryView)
+        public LocationController(Location locationModel, VLocation locationView)
         {
-            _countryModel = countryModel;
-            _countryView = countryView;
+            _locationModel = locationModel;
+            _locationView = locationView;
         }
 
         public void GetAll()
         {
-            var regionResult = _countryModel.GetAll();
+            var regionResult = _locationModel.GetAll();
             if (regionResult.Count() is 0)
             {
-                _countryView.DataEmpty();
+                _locationView.DataEmpty();
             }
             else
             {
-                _countryView.GetAll(regionResult);
+                _locationView.GetAll(regionResult);
             }
         }
 
         public void Insert()
         {
-            var region = _countryView.InsertMenu();
+            var region = _locationView.InsertMenu();
 
-            var result = _countryModel.Insert(region);
+            var result = _locationModel.Insert(region);
             switch (result)
             {
                 case -1:
-                    _countryView.DataEmpty();
+                    _locationView.DataEmpty();
                     break;
                 case 0:
-                    _countryView.Fail();
+                    _locationView.Fail();
                     break;
                 default:
-                    _countryView.Success();
+                    _locationView.Success();
                     break;
             }
         }
 
         public void Update()
         {
-            var region = _countryView.UpdateMenu();
-            var result = _countryModel.Update(region);
+            var region = _locationView.UpdateMenu();
+            var result = _locationModel.Update(region);
 
             switch (result)
             {
                 case -1:
-                    _countryView.DataEmpty();
+                    _locationView.DataEmpty();
                     break;
                 case 0:
-                    _countryView.Fail();
+                    _locationView.Fail();
                     break;
                 default:
-                    _countryView.Success();
+                    _locationView.Success();
                     break;
             }
         }
 
         public void Delete()
         {
-            var region = _countryView.DeleteMenu();
-            var result = _countryModel.Delete(region);
+            var region = _locationView.DeleteMenu();
+            var result = _locationModel.Delete(region);
 
             switch (result)
             {
                 case -1:
-                    _countryView.DataEmpty();
+                    _locationView.DataEmpty();
                     break;
                 case 0:
-                    _countryView.Fail();
+                    _locationView.Fail();
                     break;
                 default:
-                    _countryView.Success();
+                    _locationView.Success();
                     break;
             }
 

@@ -8,83 +8,83 @@ using System.Threading.Tasks;
 
 namespace MVCArchitecture.Controllers
 {
-    public class CountryController
+    public class EmployeeController
     {
-        private Country _countryModel;
-        private VCountry _countryView;
+        private Employee _employeeModel;
+        private VEmployee _employeeView;
 
-        public CountryController(Country countryModel, VCountry countryView)
+        public EmployeeController(Employee historyModel, VEmployee historyView)
         {
-            _countryModel = countryModel;
-            _countryView = countryView;
+            _employeeModel = historyModel;
+            _employeeView = historyView;
         }
 
         public void GetAll()
         {
-            var regionResult = _countryModel.GetAll();
+            var regionResult = _employeeModel.GetAll();
             if (regionResult.Count() is 0)
             {
-                _countryView.DataEmpty();
+                _employeeView.DataEmpty();
             }
             else
             {
-                _countryView.GetAll(regionResult);
+                _employeeView.GetAll(regionResult);
             }
         }
 
         public void Insert()
         {
-            var region = _countryView.InsertMenu();
+            var region = _employeeView.InsertMenu();
 
-            var result = _countryModel.Insert(region);
+            var result = _employeeModel.Insert(region);
             switch (result)
             {
                 case -1:
-                    _countryView.DataEmpty();
+                    _employeeView.DataEmpty();
                     break;
                 case 0:
-                    _countryView.Fail();
+                    _employeeView.Fail();
                     break;
                 default:
-                    _countryView.Success();
+                    _employeeView.Success();
                     break;
             }
         }
 
         public void Update()
         {
-            var region = _countryView.UpdateMenu();
-            var result = _countryModel.Update(region);
+            var region = _employeeView.UpdateMenu();
+            var result = _employeeModel.Update(region);
 
             switch (result)
             {
                 case -1:
-                    _countryView.DataEmpty();
+                    _employeeView.DataEmpty();
                     break;
                 case 0:
-                    _countryView.Fail();
+                    _employeeView.Fail();
                     break;
                 default:
-                    _countryView.Success();
+                    _employeeView.Success();
                     break;
             }
         }
 
         public void Delete()
         {
-            var region = _countryView.DeleteMenu();
-            var result = _countryModel.Delete(region);
+            var region = _employeeView.DeleteMenu();
+            var result = _employeeModel.Delete(region);
 
             switch (result)
             {
                 case -1:
-                    _countryView.DataEmpty();
+                    _employeeView.DataEmpty();
                     break;
                 case 0:
-                    _countryView.Fail();
+                    _employeeView.Fail();
                     break;
                 default:
-                    _countryView.Success();
+                    _employeeView.Success();
                     break;
             }
 

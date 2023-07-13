@@ -8,83 +8,83 @@ using System.Threading.Tasks;
 
 namespace MVCArchitecture.Controllers
 {
-    public class CountryController
+    public class JobController
     {
-        private Country _countryModel;
-        private VCountry _countryView;
+        private Job _jobModel;
+        private VJob _jobView;
 
-        public CountryController(Country countryModel, VCountry countryView)
+        public JobController(Job jobModel, VJob jobView)
         {
-            _countryModel = countryModel;
-            _countryView = countryView;
+            _jobModel = jobModel;
+            _jobView = jobView;
         }
 
         public void GetAll()
         {
-            var regionResult = _countryModel.GetAll();
+            var regionResult = _jobModel.GetAll();
             if (regionResult.Count() is 0)
             {
-                _countryView.DataEmpty();
+                _jobView.DataEmpty();
             }
             else
             {
-                _countryView.GetAll(regionResult);
+                _jobView.GetAll(regionResult);
             }
         }
 
         public void Insert()
         {
-            var region = _countryView.InsertMenu();
+            var region = _jobView.InsertMenu();
 
-            var result = _countryModel.Insert(region);
+            var result = _jobModel.Insert(region);
             switch (result)
             {
                 case -1:
-                    _countryView.DataEmpty();
+                    _jobView.DataEmpty();
                     break;
                 case 0:
-                    _countryView.Fail();
+                    _jobView.Fail();
                     break;
                 default:
-                    _countryView.Success();
+                    _jobView.Success();
                     break;
             }
         }
 
         public void Update()
         {
-            var region = _countryView.UpdateMenu();
-            var result = _countryModel.Update(region);
+            var region = _jobView.UpdateMenu();
+            var result = _jobModel.Update(region);
 
             switch (result)
             {
                 case -1:
-                    _countryView.DataEmpty();
+                    _jobView.DataEmpty();
                     break;
                 case 0:
-                    _countryView.Fail();
+                    _jobView.Fail();
                     break;
                 default:
-                    _countryView.Success();
+                    _jobView.Success();
                     break;
             }
         }
 
         public void Delete()
         {
-            var region = _countryView.DeleteMenu();
-            var result = _countryModel.Delete(region);
+            var region = _jobView.DeleteMenu();
+            var result = _jobModel.Delete(region);
 
             switch (result)
             {
                 case -1:
-                    _countryView.DataEmpty();
+                    _jobView.DataEmpty();
                     break;
                 case 0:
-                    _countryView.Fail();
+                    _jobView.Fail();
                     break;
                 default:
-                    _countryView.Success();
+                    _jobView.Success();
                     break;
             }
 
