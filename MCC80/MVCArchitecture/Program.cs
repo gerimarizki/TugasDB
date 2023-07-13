@@ -109,26 +109,22 @@ public class Program
 
                 case 1:
                     Console.WriteLine("1. Tambah Region");
-                    Console.Clear();
                     regionController.Insert();
                     MenuRegion();
                     break;
                 case 2:
                     Console.WriteLine("2. Update Region");
-                    Console.Clear();
                     regionController.Update();
                     MenuRegion();
                     break;
                 case 3:
                     Console.WriteLine("3. Hapus Region");
-                    Console.Clear();
-                    //DeleteByRegion();
+                    regionController.Delete();
                     MenuRegion();
                     break;
                 case 4:
                     Console.WriteLine("4. Search By Region ID");
-                    Console.Clear();
-                    //SearchRegionById();
+                    regionController.Search(); ;
                     MenuRegion();
                     break;
                 case 5:

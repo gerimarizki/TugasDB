@@ -1476,7 +1476,7 @@ public class Program
         try
         {
             SqlParameter pJobId = new SqlParameter();
-            pJobId.ParameterName = "@location_id";
+            pJobId.ParameterName = "@job_id";
             pJobId.SqlDbType = System.Data.SqlDbType.Char;
             pJobId.Value = job_id;
             sqlCommand.Parameters.Add(job_id);

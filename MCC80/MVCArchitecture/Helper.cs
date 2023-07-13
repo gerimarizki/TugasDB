@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MVCArchitecture.Controllers
+namespace MVCArchitecture
 {
-    public class CountryController
+    internal class Helper
     {
     }
 }
