@@ -53,13 +53,18 @@ namespace MVCArchitecture.Models
                     {
                         Employee employee = new Employee();
 
+                        string phone_number = reader.IsDBNull(4) ? "N/A" : reader.GetString(4);
+                        int salary = reader.IsDBNull(6) ? 0 : reader.GetInt32(6);
+                        decimal comission_pct = reader.IsDBNull(7) ? 0 : reader.GetDecimal(7);
+
                         employee.Id = reader.GetInt32(0);
-                        employee.First_Name = reader.GetString(2);
-                        employee.Last_Name = reader.GetString(3);
-                        employee.Email = reader.GetString(4);
-                        employee.Phone_Number = reader.GetString(5) ?? "N/A";
-                        employee.Salary = reader.GetInt32(5);
-                        employee.Comission_Pct = reader.GetDecimal(6);
+                        employee.First_Name = reader.GetString(1);
+                        employee.Last_Name = reader.GetString(2);
+                        employee.Email = reader.GetString(3);
+                        employee.Phone_Number = phone_number;
+                        employee.Hire_Date = reader.GetDateTime(5);
+                        employee.Salary = salary;
+                        employee.Comission_Pct = comission_pct;
 
 
 
@@ -292,13 +297,18 @@ namespace MVCArchitecture.Models
                 {
                     reader.Read();
 
+                    string phone_number = reader.IsDBNull(4) ? "N/A" : reader.GetString(4);
+                    int salary = reader.IsDBNull(6) ? 0 : reader.GetInt32(6);
+                    decimal comission_pct = reader.IsDBNull(7) ? 0 : reader.GetDecimal(7);
+
                     employee.Id = reader.GetInt32(0);
-                    employee.First_Name = reader.GetString(2);
-                    employee.Last_Name = reader.GetString(3);
-                    employee.Email = reader.GetString(4);
-                    employee.Phone_Number = reader.GetString(5) ?? "N/A";
-                    employee.Salary = reader.GetInt32(5);
-                    employee.Comission_Pct = reader.GetDecimal(6);
+                    employee.First_Name = reader.GetString(1);
+                    employee.Last_Name = reader.GetString(2);
+                    employee.Email = reader.GetString(3);
+                    employee.Phone_Number = phone_number;
+                    employee.Hire_Date = reader.GetDateTime(5);
+                    employee.Salary = salary;
+                    employee.Comission_Pct = comission_pct;
 
                 }
                 reader.Close();

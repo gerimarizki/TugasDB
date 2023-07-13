@@ -35,36 +35,36 @@ public class Program
                 case 1:
                     Console.WriteLine("1. Employees");
                     Console.Clear();
-                    //MenuEmployees();
+                    MenuEmployees();
                     break;
                 case 2:
                     Console.WriteLine("2. Departments");
                     Console.Clear();
-                    //MenuDepartment();
+                    MenuDepartment();
                     MainMenu();
                     break;
                 case 3:
                     Console.WriteLine("3. Jobs");
                     Console.Clear();
-                    //MenuJobs();
+                    MenuJob();
                     MainMenu();
                     break;
                 case 4:
                     Console.WriteLine("4. Histories");
                     Console.Clear();
-                    //MenuHistories();
+                    MenuHistory();
                     MainMenu();
                     break;
                 case 5:
                     Console.WriteLine("5. Locations");
                     Console.Clear();
-                    //MenuLocation();
+                    MenuLocation();
                     MainMenu();
                     break;
                 case 6:
                     Console.WriteLine("6. Countries");
                     Console.Clear();
-                    //MenuCountry();
+                    MenuCountry();
                     MainMenu();
                     break;
                 case 7:
@@ -108,32 +108,26 @@ public class Program
             {
 
                 case 1:
-                    Console.WriteLine("1. Tambah Region");
                     regionController.Insert();
                     MenuRegion();
                     break;
                 case 2:
-                    Console.WriteLine("2. Update Region");
                     regionController.Update();
                     MenuRegion();
                     break;
                 case 3:
-                    Console.WriteLine("3. Hapus Region");
                     regionController.Delete();
                     MenuRegion();
                     break;
                 case 4:
-                    Console.WriteLine("4. Search By Region ID");
-                    regionController.Search(); ;
+                    
                     MenuRegion();
                     break;
                 case 5:
-                    Console.WriteLine("5. Get All Regions");
                     regionController.GetAll();
                     MenuRegion();
                     break;
                 case 6:
-                    Console.WriteLine("MainMenu");
                     MainMenu();
                     break;
                 default:
@@ -152,48 +146,39 @@ public class Program
 
     public static void MenuCountry()
     {
-        Region region = new Region();
-        VRegion vRegion = new VRegion();
-        RegionController regionController = new RegionController(region, vRegion);
+        Country country = new Country();
+        VCountry vCountry = new VCountry();
+        CountryController countryController = new CountryController(country, vCountry);
 
 
 
         try
         {
-            vRegion.Menu();
+            vCountry.Menu();
             int pilihMenu = Int32.Parse(Console.ReadLine());
 
             switch (pilihMenu)
             {
 
                 case 1:
-                    Console.WriteLine("1. Tambah Country");
-                    Console.Clear();
-                    regionController.Insert();
-                    MenuRegion();
+                    countryController.Insert();
+                    MenuCountry();
                     break;
                 case 2:
-                    Console.WriteLine("2. Update Country");
-                    Console.Clear();
-                    regionController.Update();
-                    MenuRegion();
+                    countryController.Update();
+                    MenuCountry();
                     break;
                 case 3:
-                    Console.WriteLine("3. Hapus Country");
-                    Console.Clear();
-                    //DeleteByRegion();
-                    MenuRegion();
+                    countryController.Delete();
+                    MenuCountry();
                     break;
                 case 4:
-                    Console.WriteLine("4. Search By Country ID");
-                    Console.Clear();
-                    //SearchRegionById();
-                    MenuRegion();
+
+                    MenuCountry();
                     break;
                 case 5:
-                    Console.WriteLine("5. Get All Country");
-                    regionController.GetAll();
-                    MenuRegion();
+                    countryController.GetAll();
+                    MenuCountry();
                     break;
                 case 6:
                     Console.WriteLine("MainMenu");
@@ -201,14 +186,280 @@ public class Program
                     break;
                 default:
                     Console.WriteLine("Silahkan Pilih Nomor 1-6");
-                    MenuRegion();
+                    MenuCountry();
                     break;
             }
         }
         catch
         {
             Console.WriteLine("Input Hanya diantara 1-6!");
-            MenuRegion();
+            MenuCountry();
         }
     }
+
+    public static void MenuLocation()
+    {
+        Location location = new Location();
+        VLocation vLocation = new VLocation();
+        LocationController locationController = new LocationController(location, vLocation);
+
+
+
+        try
+        {
+            vLocation.Menu();
+            int pilihMenu = Int32.Parse(Console.ReadLine());
+
+            switch (pilihMenu)
+            {
+
+                case 1:
+                    locationController.Insert();
+                    MenuLocation();
+                    break;
+                case 2:
+                    locationController.Update();
+                    MenuLocation();
+                    break;
+                case 3:
+                    locationController.Delete();
+                    MenuLocation();
+                    break;
+                case 4:
+
+                    MenuLocation();
+                    break;
+                case 5:
+                    locationController.GetAll();
+                    MenuLocation();
+                    break;
+                case 6:
+                    Console.WriteLine("MainMenu");
+                    MainMenu();
+                    break;
+                default:
+                    Console.WriteLine("Silahkan Pilih Nomor 1-6");
+                    MenuLocation();
+                    break;
+            }
+        }
+        catch
+        {
+            Console.WriteLine("Input Hanya diantara 1-6!");
+            MenuLocation();
+        }
+    }
+
+    public static void MenuDepartment()
+    {
+        Department department = new Department();
+        VDepartment vDepartment = new VDepartment();
+        DepartmentController departmentController = new DepartmentController(department, vDepartment);
+
+
+
+        try
+        {
+            vDepartment.Menu();
+            int pilihMenu = Int32.Parse(Console.ReadLine());
+
+            switch (pilihMenu)
+            {
+
+                case 1:
+                    departmentController.Insert();
+                    MenuDepartment();
+                    break;
+                case 2:
+                    departmentController.Update();
+                    MenuDepartment();
+                    break;
+                case 3:
+                    departmentController.Delete();
+                    MenuDepartment();
+                    break;
+                case 4:
+
+                    MenuDepartment();
+                    break;
+                case 5:
+                    departmentController.GetAll();
+                    MenuDepartment();
+                    break;
+                case 6:
+                    Console.WriteLine("MainMenu");
+                    MainMenu();
+                    break;
+                default:
+                    Console.WriteLine("Silahkan Pilih Nomor 1-6");
+                    MenuDepartment();
+                    break;
+            }
+        }
+        catch
+        {
+            Console.WriteLine("Input Hanya diantara 1-6!");
+            MenuDepartment();
+        }
+    }
+
+    public static void MenuJob()
+    {
+        Job job = new Job();
+        VJob vJob = new VJob();
+        JobController jobController = new JobController(job, vJob);
+
+
+
+        try
+        {
+            vJob.Menu();
+            int pilihMenu = Int32.Parse(Console.ReadLine());
+
+            switch (pilihMenu)
+            {
+
+                case 1:
+                    jobController.Insert();
+                    MenuJob();
+                    break;
+                case 2:
+                    jobController.Update();
+                    MenuJob();
+                    break;
+                case 3:
+                    jobController.Delete();
+                    MenuJob();
+                    break;
+                case 4:
+
+                    MenuJob();
+                    break;
+                case 5:
+                    jobController.GetAll();
+                    MenuJob();
+                    break;
+                case 6:
+                    Console.WriteLine("MainMenu");
+                    MainMenu();
+                    break;
+                default:
+                    Console.WriteLine("Silahkan Pilih Nomor 1-6");
+                    MenuJob();
+                    break;
+            }
+        }
+        catch
+        {
+            Console.WriteLine("Input Hanya diantara 1-6!");
+            MenuJob();
+        }
+    }
+
+    public static void MenuHistory()
+    {
+        History history = new History();
+        VHistory vHistory = new VHistory();
+        HistoryController historyController = new HistoryController(history, vHistory);
+
+
+
+        try
+        {
+            vHistory.Menu();
+            int pilihMenu = Int32.Parse(Console.ReadLine());
+
+            switch (pilihMenu)
+            {
+
+                case 1:
+                    historyController.Insert();
+                    MenuHistory();
+                    break;
+                case 2:
+                    historyController.Update();
+                    MenuHistory();
+                    break;
+                case 3:
+                    historyController.Delete();
+                    MenuHistory();
+                    break;
+                case 4:
+
+                    MenuHistory();
+                    break;
+                case 5:
+                    historyController.GetAll();
+                    MenuHistory();
+                    break;
+                case 6:
+                    Console.WriteLine("MainMenu");
+                    MainMenu();
+                    break;
+                default:
+                    Console.WriteLine("Silahkan Pilih Nomor 1-6");
+                    MenuHistory();
+                    break;
+            }
+        }
+        catch
+        {
+            Console.WriteLine("Input Hanya diantara 1-6!");
+            MenuHistory();
+        }
+    }
+
+    public static void MenuEmployees()
+    {
+        Employee employee = new Employee();
+        VEmployee vEmployee = new VEmployee();
+        EmployeeController employeeController = new EmployeeController(employee, vEmployee);
+
+
+
+        try
+        {
+            vEmployee.Menu();
+            int pilihMenu = Int32.Parse(Console.ReadLine());
+
+            switch (pilihMenu)
+            {
+
+                case 1:
+                    employeeController.Insert();
+                    MenuEmployees();
+                    break;
+                case 2:
+                    employeeController.Update();
+                    MenuEmployees();
+                    break;
+                case 3:
+                    employeeController.Delete();
+                    MenuEmployees();
+                    break;
+                case 4:
+
+                    MenuEmployees();
+                    break;
+                case 5:
+                    employeeController.GetAll();
+                    MenuEmployees();
+                    break;
+                case 6:
+                    Console.WriteLine("MainMenu");
+                    MainMenu();
+                    break;
+                default:
+                    Console.WriteLine("Silahkan Pilih Nomor 1-6");
+                    MenuEmployees();
+                    break;
+            }
+        }
+        catch
+        {
+            Console.WriteLine("Input Hanya diantara 1-6!");
+            MenuEmployees();
+        }
+    }
+
 }
