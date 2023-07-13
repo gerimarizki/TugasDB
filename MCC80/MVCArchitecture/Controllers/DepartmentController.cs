@@ -89,5 +89,19 @@ namespace MVCArchitecture.Controllers
             }
 
         }
+
+        public void SearchById()
+        {
+            int id = _departmentView.GetDepartmentId();
+            var result = _departmentModel.GetById(id);
+            if (result == null)
+            {
+                _departmentView.DataEmpty();
+            }
+            else
+            {
+                _departmentView.GetById(result);
+            }
+        }
     }
 }

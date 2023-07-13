@@ -89,5 +89,19 @@ namespace MVCArchitecture.Controllers
             }
 
         }
+
+        public void SearchById()
+        {
+            DateTime id = _historyView.GetHistoryId();
+            var result = _historyModel.GetById(id);
+            if (result == null)
+            {
+                _historyView.DataEmpty();
+            }
+            else
+            {
+                _historyView.GetById(result);
+            }
+        }
     }
 }

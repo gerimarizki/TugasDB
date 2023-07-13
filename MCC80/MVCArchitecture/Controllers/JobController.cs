@@ -89,5 +89,19 @@ namespace MVCArchitecture.Controllers
             }
 
         }
+
+        public void SearchById()
+        {
+            string id = _jobView.GetJobId();
+            var result = _jobModel.GetById(id);
+            if (result == null)
+            {
+                _jobView.DataEmpty();
+            }
+            else
+            {
+                _jobView.GetById(result);
+            }
+        }
     }
 }

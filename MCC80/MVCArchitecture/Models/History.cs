@@ -191,42 +191,41 @@ namespace MVCArchitecture.Models
 
 
 
-        public History GetById(DateTime start_date)
+        public History GetById(DateTime start_Date)
         {
             var history = new History();
 
-            var _connection = Connection.Get();
-
-            SqlCommand sqlCommand = new SqlCommand();
-            sqlCommand.Connection = _connection;
-            sqlCommand.CommandText = "SELECT * FROM histories WHERE start_date = @start_date";
-            sqlCommand.Parameters.AddWithValue("@start_date", start_date);
-
-            try
+            using (SqlConnection connection = Connection.Get())
             {
-                _connection.Open();
-                SqlDataReader reader = sqlCommand.ExecuteReader();
-                if (reader.HasRows)
+                SqlCommand sqlCommand = new SqlCommand();
+                sqlCommand.Connection = connection;
+                sqlCommand.CommandText = "SELECT * FROM histories WHERE start_Date = @start_Date";
+                sqlCommand.Parameters.AddWithValue("@start_Date", start_Date);
+
+                try
                 {
-                    reader.Read();
+                    connection.Open();
+                    using (SqlDataReader reader = sqlCommand.ExecuteReader())
+                    {
+                        if (reader.HasRows)
+                        {
+                            reader.Read();
 
-                    history.Start_Date = reader.GetDateTime(0);
-                    history.Employee_Id = reader.GetInt32(1);
-                    history.End_Date = reader.GetDateTime(2);
-                    history.Department_Id = reader.GetInt32(3);
-                    history.Job_Id = reader.GetString(4);
-
+                            history.Start_Date = reader.GetDateTime(0);
+                            history.Employee_Id = reader.GetInt32(1);
+                            history.End_Date = reader.GetDateTime(2);
+                            history.Department_Id = reader.GetInt32(3);
+                            history.Job_Id = reader.GetString(4);
+                        }
+                    }
                 }
-                reader.Close();
-                _connection.Close();
-
-                return new History();
-            }
-            catch
-            {
-                return new History();
+                catch
+                {
+                    return new History();
+                }
             }
 
+            return history;
         }
 
 

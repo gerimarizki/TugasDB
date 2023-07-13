@@ -187,37 +187,36 @@ namespace MVCArchitecture.Models
         {
             var department = new Department();
 
-            var _connection = Connection.Get();
-
-            SqlCommand sqlCommand = new SqlCommand();
-            sqlCommand.Connection = _connection;
-            sqlCommand.CommandText = "SELECT * FROM departments WHERE id = @id";
-            sqlCommand.Parameters.AddWithValue("@id", id);
-
-            try
+            using (SqlConnection connection = Connection.Get())
             {
-                _connection.Open();
-                SqlDataReader reader = sqlCommand.ExecuteReader();
-                if (reader.HasRows)
+                SqlCommand sqlCommand = new SqlCommand();
+                sqlCommand.Connection = connection;
+                sqlCommand.CommandText = "SELECT * FROM departments WHERE id = @id";
+                sqlCommand.Parameters.AddWithValue("@id", id);
+
+                try
                 {
-                    reader.Read();
+                    connection.Open();
+                    using (SqlDataReader reader = sqlCommand.ExecuteReader())
+                    {
+                        if (reader.HasRows)
+                        {
+                            reader.Read();
 
-                    department.Id = reader.GetInt32(0);
-                    department.Name = reader.GetString(1);
-                    department.Location_Id = reader.GetInt32(2);
-                    department.Manager_Id = reader.GetInt32(2);
-
+                            department.Id = reader.GetInt32(0);
+                            department.Name = reader.GetString(1);
+                            department.Location_Id = reader.GetInt32(2);
+                            department.Manager_Id = reader.GetInt32(3);
+                        }
+                    }
                 }
-                reader.Close();
-                _connection.Close();
-
-                return new Department();
-            }
-            catch
-            {
-                return new Department();
+                catch
+                {
+                    return new Department();
+                }
             }
 
+            return department;
         }
 
 

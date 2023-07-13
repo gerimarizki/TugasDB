@@ -105,13 +105,11 @@ namespace MVCArchitecture.Views
             return inputId;
         }
 
-        public int GetByIdMenu()
+        public int GetLocationId()
         {
-            Console.WriteLine("Cari Location Id: ");
-            int inputId = Convert.ToInt32(Console.ReadLine());
-
-
-            return inputId;
+            Console.WriteLine("Masukkan ID Location: ");
+            int id = Convert.ToInt32(Console.ReadLine());
+            return id;
         }
     }
 }

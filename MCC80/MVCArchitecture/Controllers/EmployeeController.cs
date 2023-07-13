@@ -89,5 +89,19 @@ namespace MVCArchitecture.Controllers
             }
 
         }
+
+        public void SearchById()
+        {
+            int id = _employeeView.GetEmployeeId();
+            var result = _employeeModel.GetById(id);
+            if (result == null)
+            {
+                _employeeView.DataEmpty();
+            }
+            else
+            {
+                _employeeView.GetById(result);
+            }
+        }
     }
 }

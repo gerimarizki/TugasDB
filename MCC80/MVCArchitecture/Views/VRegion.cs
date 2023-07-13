@@ -4,12 +4,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
+using MVCArchitecture.Controllers;
 using MVCArchitecture.Models;
 
 namespace MVCArchitecture.Views
 {
     public class VRegion
     {
+        private Region _regionModel;
+        private VRegion _regionView;
+
         public void GetAll(List<Region> regions)
         {
             foreach (Region region in regions)
@@ -17,6 +21,7 @@ namespace MVCArchitecture.Views
                 GetById(region);
             }
         }
+
 
         public void Menu()
         {
@@ -84,18 +89,15 @@ namespace MVCArchitecture.Views
         {
             Console.WriteLine("Hapus region Id: ");
             int inputId = Convert.ToInt32(Console.ReadLine());
-           
+
             return inputId;
         }
 
-        public int GetByIdMenu()
+        public int GetRegionId()
         {
-            Console.WriteLine("Cari region Id: ");
-            int inputId = Convert.ToInt32(Console.ReadLine());
-           
-
-            return inputId;
+            Console.WriteLine("Masukkan ID Region: ");
+            int id = Convert.ToInt32(Console.ReadLine());
+            return id;
         }
-
     }
 }

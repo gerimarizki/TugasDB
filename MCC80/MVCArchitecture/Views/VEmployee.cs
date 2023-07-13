@@ -9,6 +9,7 @@ namespace MVCArchitecture.Views
 {
     public class VEmployee
     {
+        private Employee _employeeModel;
         public void GetAll(List<Employee> employees)
         {
             foreach (Employee employee in employees)
@@ -130,14 +131,12 @@ namespace MVCArchitecture.Views
 
             return inputId;
         }
-
-        public int GetByIdMenu()
+        public int GetEmployeeId()
         {
-            Console.WriteLine("Cari Employee Id: ");
-            int inputId = Convert.ToInt32(Console.ReadLine());
-
-
-            return inputId;
+            Console.WriteLine("Masukkan ID Employee: ");
+            int id = Convert.ToInt32(Console.ReadLine());
+            return id;
         }
+
     }
 }

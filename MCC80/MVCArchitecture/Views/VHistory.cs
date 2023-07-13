@@ -92,7 +92,7 @@ namespace MVCArchitecture.Views
             return inputId;
         }
 
-        public DateTime GetByIdMenu()
+        public DateTime GetHistoryId()
         {
             Console.WriteLine("Cari Start Date Id: ");
             DateTime inputId = Convert.ToDateTime(Console.ReadLine());

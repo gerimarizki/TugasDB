@@ -89,5 +89,19 @@ namespace MVCArchitecture.Controllers
             }
 
         }
+
+        public void SearchById()
+        {
+            int id = _locationView.GetLocationId();
+            var result = _locationModel.GetById(id);
+            if (result == null)
+            {
+                _locationView.DataEmpty();
+            }
+            else
+            {
+                _locationView.GetById(result);
+            }
+        }
     }
 }

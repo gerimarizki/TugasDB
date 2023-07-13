@@ -282,45 +282,45 @@ namespace MVCArchitecture.Models
         {
             var employee = new Employee();
 
-            var _connection = Connection.Get();
-
-            SqlCommand sqlCommand = new SqlCommand();
-            sqlCommand.Connection = _connection;
-            sqlCommand.CommandText = "SELECT * FROM employees WHERE id = @id";
-            sqlCommand.Parameters.AddWithValue("@id", id);
-
-            try
+            using (SqlConnection connection = Connection.Get())
             {
-                _connection.Open();
-                SqlDataReader reader = sqlCommand.ExecuteReader();
-                if (reader.HasRows)
+                SqlCommand sqlCommand = new SqlCommand();
+                sqlCommand.Connection = connection;
+                sqlCommand.CommandText = "SELECT * FROM employees WHERE id = @id";
+                sqlCommand.Parameters.AddWithValue("@id", id);
+
+                try
                 {
-                    reader.Read();
+                    connection.Open();
+                    using (SqlDataReader reader = sqlCommand.ExecuteReader())
+                    {
+                        if (reader.HasRows)
+                        {
+                            reader.Read();
 
-                    string phone_number = reader.IsDBNull(4) ? "N/A" : reader.GetString(4);
-                    int salary = reader.IsDBNull(6) ? 0 : reader.GetInt32(6);
-                    decimal comission_pct = reader.IsDBNull(7) ? 0 : reader.GetDecimal(7);
+                            string phone_number = reader.IsDBNull(4) ? "N/A" : reader.GetString(4);
+                            int salary = reader.IsDBNull(6) ? 0 : reader.GetInt32(6);
+                            decimal comission_pct = reader.IsDBNull(7) ? 0 : reader.GetDecimal(7);
 
-                    employee.Id = reader.GetInt32(0);
-                    employee.First_Name = reader.GetString(1);
-                    employee.Last_Name = reader.GetString(2);
-                    employee.Email = reader.GetString(3);
-                    employee.Phone_Number = phone_number;
-                    employee.Hire_Date = reader.GetDateTime(5);
-                    employee.Salary = salary;
-                    employee.Comission_Pct = comission_pct;
+                            employee.Id = reader.GetInt32(0);
+                            employee.First_Name = reader.GetString(1);
+                            employee.Last_Name = reader.GetString(2);
+                            employee.Email = reader.GetString(3);
+                            employee.Phone_Number = phone_number;
+                            employee.Hire_Date = reader.GetDateTime(5);
+                            employee.Salary = salary;
+                            employee.Comission_Pct = comission_pct;
 
+                        }
+                    }
                 }
-                reader.Close();
-                _connection.Close();
-
-                return new Employee();
-            }
-            catch
-            {
-                return new Employee();
+                catch
+                {
+                    return new Employee();
+                }
             }
 
+            return employee;
         }
 
 

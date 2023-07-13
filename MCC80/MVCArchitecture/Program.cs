@@ -120,7 +120,7 @@ public class Program
                     MenuRegion();
                     break;
                 case 4:
-                    
+                    regionController.SearchById();
                     MenuRegion();
                     break;
                 case 5:
@@ -173,7 +173,7 @@ public class Program
                     MenuCountry();
                     break;
                 case 4:
-
+                    countryController.SearchById();
                     MenuCountry();
                     break;
                 case 5:
@@ -226,7 +226,7 @@ public class Program
                     MenuLocation();
                     break;
                 case 4:
-
+                    locationController.SearchById();
                     MenuLocation();
                     break;
                 case 5:
@@ -279,7 +279,7 @@ public class Program
                     MenuDepartment();
                     break;
                 case 4:
-
+                    departmentController.SearchById();
                     MenuDepartment();
                     break;
                 case 5:
@@ -332,7 +332,7 @@ public class Program
                     MenuJob();
                     break;
                 case 4:
-
+                    jobController.SearchById();
                     MenuJob();
                     break;
                 case 5:
@@ -385,7 +385,7 @@ public class Program
                     MenuHistory();
                     break;
                 case 4:
-
+                    historyController.SearchById();
                     MenuHistory();
                     break;
                 case 5:
@@ -438,7 +438,7 @@ public class Program
                     MenuEmployees();
                     break;
                 case 4:
-
+                    employeeController.SearchById();
                     MenuEmployees();
                     break;
                 case 5:

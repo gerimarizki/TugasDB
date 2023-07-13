@@ -183,36 +183,35 @@ namespace MVCArchitecture.Models
         {
             var country = new Country();
 
-            var _connection = Connection.Get();
-
-            SqlCommand sqlCommand = new SqlCommand();
-            sqlCommand.Connection = _connection;
-            sqlCommand.CommandText = "SELECT * FROM countries WHERE country_id = @id";
-            sqlCommand.Parameters.AddWithValue("@id", id);
-
-            try
+            using (SqlConnection connection = Connection.Get())
             {
-                _connection.Open();
-                SqlDataReader reader = sqlCommand.ExecuteReader();
-                if (reader.HasRows)
+                SqlCommand sqlCommand = new SqlCommand();
+                sqlCommand.Connection = connection;
+                sqlCommand.CommandText = "SELECT * FROM countries WHERE id = @id";
+                sqlCommand.Parameters.AddWithValue("@id", id);
+
+                try
                 {
-                    reader.Read();
+                    connection.Open();
+                    using (SqlDataReader reader = sqlCommand.ExecuteReader())
+                    {
+                        if (reader.HasRows)
+                        {
+                            reader.Read();
 
-                    country.Id = reader.GetString(0);
-                    country.Name = reader.GetString(1);
-                    country.Region_Id = reader.GetInt32(2);
-
+                            country.Id = reader.GetString(0);
+                            country.Name = reader.GetString(1);
+                            country.Region_Id = reader.GetInt32(2);
+                        }
+                    }
                 }
-                reader.Close();
-                _connection.Close();
-
-                return new Country();
-            }
-            catch
-            {
-                return new Country();
+                catch
+                {
+                    return new Country();
+                }
             }
 
+            return country;
         }
 
 

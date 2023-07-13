@@ -81,19 +81,18 @@ namespace MVCArchitecture.Views
 
         public string DeleteMenu()
         {
-            Console.WriteLine("Hapus region Id: ");
+            Console.WriteLine("Hapus Country Id: ");
             string inputId = Console.ReadLine();
 
             return inputId;
         }
 
-        public string GetByIdMenu()
+        public string GetCountryId()
         {
-            Console.WriteLine("Cari region Id: ");
-            string inputId = Console.ReadLine();
-
-
-            return inputId;
+            Console.WriteLine("Masukkan ID Country: ");
+            string id = Console.ReadLine();
+            return id;
         }
+
     }
 }

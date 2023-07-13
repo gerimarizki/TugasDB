@@ -222,39 +222,38 @@ namespace MVCArchitecture.Models
         {
             var location = new Location();
 
-            var _connection = Connection.Get();
-
-            SqlCommand sqlCommand = new SqlCommand();
-            sqlCommand.Connection = _connection;
-            sqlCommand.CommandText = "SELECT * FROM locations WHERE id = @id";
-            sqlCommand.Parameters.AddWithValue("@id", id);
-
-            try
+            using (SqlConnection connection = Connection.Get())
             {
-                _connection.Open();
-                SqlDataReader reader = sqlCommand.ExecuteReader();
-                if (reader.HasRows)
+                SqlCommand sqlCommand = new SqlCommand();
+                sqlCommand.Connection = connection;
+                sqlCommand.CommandText = "SELECT * FROM locations WHERE id = @id";
+                sqlCommand.Parameters.AddWithValue("@id", id);
+
+                try
                 {
-                    reader.Read();
+                    connection.Open();
+                    using (SqlDataReader reader = sqlCommand.ExecuteReader())
+                    {
+                        if (reader.HasRows)
+                        {
+                            reader.Read();
 
-                    location.Id = reader.GetInt32(0);
-                    location.Street_Address = reader.GetString(1);
-                    location.Postal_Code = reader.GetString(2);
-                    location.City = reader.GetString(3);
-                    location.State_Province = reader.GetString(4);
-                    location.Country_Id = reader.GetString(5);
-
+                            location.Id = reader.GetInt32(0);
+                            location.Street_Address = reader.GetString(1);
+                            location.Postal_Code = reader.GetString(2);
+                            location.City = reader.GetString(3);
+                            location.State_Province = reader.GetString(4);
+                            location.Country_Id = reader.GetString(5);
+                        }
+                    }
                 }
-                reader.Close();
-                _connection.Close();
-
-                return new Location();
-            }
-            catch
-            {
-                return new Location();
+                catch
+                {
+                    return new Location();
+                }
             }
 
+            return location;
         }
 
 

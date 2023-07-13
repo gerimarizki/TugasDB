@@ -210,37 +210,36 @@ namespace MVCArchitecture.Models
         {
             var job = new Job();
 
-            var _connection = Connection.Get();
-
-            SqlCommand sqlCommand = new SqlCommand();
-            sqlCommand.Connection = _connection;
-            sqlCommand.CommandText = "SELECT * FROM jobs WHERE id = @id";
-            sqlCommand.Parameters.AddWithValue("@id", id);
-
-            try
+            using (SqlConnection connection = Connection.Get())
             {
-                _connection.Open();
-                SqlDataReader reader = sqlCommand.ExecuteReader();
-                if (reader.HasRows)
+                SqlCommand sqlCommand = new SqlCommand();
+                sqlCommand.Connection = connection;
+                sqlCommand.CommandText = "SELECT * FROM jobs WHERE id = @id";
+                sqlCommand.Parameters.AddWithValue("@id", id);
+
+                try
                 {
-                    reader.Read();
+                    connection.Open();
+                    using (SqlDataReader reader = sqlCommand.ExecuteReader())
+                    {
+                        if (reader.HasRows)
+                        {
+                            reader.Read();
 
-                    job.Id = reader.GetString(0);
-                    job.Title = reader.GetString(1);
-                    job.Min_Salary = reader.GetInt32(2);
-                    job.Max_Salary = reader.GetInt32(2);
-
+                            job.Id = reader.GetString(0);
+                            job.Title = reader.GetString(1);
+                            job.Min_Salary = reader.GetInt32(2);
+                            job.Max_Salary = reader.GetInt32(3);
+                        }
+                    }
                 }
-                reader.Close();
-                _connection.Close();
-
-                return new Job();
-            }
-            catch
-            {
-                return new Job();
+                catch
+                {
+                    return new Job();
+                }
             }
 
+            return job;
         }
 
 

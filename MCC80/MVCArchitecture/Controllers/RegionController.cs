@@ -90,16 +90,19 @@ namespace MVCArchitecture.Controllers
 
         }
 
-
-        //public Region Search()
-        //{
-        //    var region = _regionView.GetByIdMenu();
-        //    var result = _regionModel.GetById(region);
-
-
-
-        //    return result;
-        //}
+        public void SearchById()
+        {
+            int id = _regionView.GetRegionId();
+            var result = _regionModel.GetById(id);
+            if (result == null)
+            {
+                _regionView.DataEmpty();
+            }
+            else
+            {
+                _regionView.GetById(result);
+            }
+        }
 
     }
 }

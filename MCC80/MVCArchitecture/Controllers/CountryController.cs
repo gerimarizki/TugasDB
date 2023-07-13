@@ -89,5 +89,19 @@ namespace MVCArchitecture.Controllers
             }
 
         }
+        public void SearchById()
+        {
+            string id = _countryView.GetCountryId();
+            var result = _countryModel.GetById(id);
+            if (result == null)
+            {
+                _countryView.DataEmpty();
+            }
+            else
+            {
+                _countryView.GetById(result);
+            }
+        }
+
     }
 }

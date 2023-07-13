@@ -181,37 +181,35 @@ namespace MVCArchitecture.Models
         {
             var region = new Region();
 
-            var _connection = Connection.Get();
-
-            SqlCommand sqlCommand = new SqlCommand();
-            sqlCommand.Connection = _connection;
-            sqlCommand.CommandText = "SELECT * FROM regions WHERE id = @id";
-            sqlCommand.Parameters.AddWithValue("@id", id);
-
-            try
+            using (SqlConnection connection = Connection.Get())
             {
-                _connection.Open();
-                SqlDataReader reader = sqlCommand.ExecuteReader();
-                if (reader.HasRows)
+                SqlCommand sqlCommand = new SqlCommand();
+                sqlCommand.Connection = connection;
+                sqlCommand.CommandText = "SELECT * FROM regions WHERE id = @id";
+                sqlCommand.Parameters.AddWithValue("@id", id);
+
+                try
                 {
-                    reader.Read();
+                    connection.Open();
+                    using (SqlDataReader reader = sqlCommand.ExecuteReader())
+                    {
+                        if (reader.HasRows)
+                        {
+                            reader.Read();
 
-                    region.Id = reader.GetInt32(0);
-                    region.Name = reader.GetString(1);
-
+                            region.Id = reader.GetInt32(0);
+                            region.Name = reader.GetString(1);
+                        }
+                    }
                 }
-                reader.Close();
-                _connection.Close();
-
-                return new Region();
-            }
-            catch
-            {
-                return new Region();
+                catch
+                {
+                    return new Region();
+                }
             }
 
+            return region;
         }
-
 
     }
 }

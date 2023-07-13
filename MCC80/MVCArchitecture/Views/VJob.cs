@@ -107,5 +107,12 @@ namespace MVCArchitecture.Views
 
             return inputId;
         }
+
+        public string GetJobId()
+        {
+            Console.WriteLine("Masukkan ID Job: ");
+            string id = Console.ReadLine();
+            return id;
+        }
     }
 }
