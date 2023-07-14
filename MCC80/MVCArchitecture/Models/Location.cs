@@ -74,7 +74,7 @@ namespace MVCArchitecture.Models
 
             using SqlCommand sqlCommand = new SqlCommand();
             sqlCommand.Connection = _connection;
-            sqlCommand.CommandText = "INSERT INTO countries VALUES (@street_address), (@postal_code), (@city), (@state_province)";
+            sqlCommand.CommandText = "INSERT INTO countries VALUES (@Id) (@street_address), (@postal_code), (@city), (@state_province) (@country_id)";
 
             _connection.Open();
             using SqlTransaction transaction = _connection.BeginTransaction();
@@ -83,6 +83,11 @@ namespace MVCArchitecture.Models
 
             try
             {
+                SqlParameter pLocationId = new SqlParameter();
+                pLocationId.ParameterName = "@id";
+                pLocationId.SqlDbType = System.Data.SqlDbType.Int;
+                pLocationId.Value = location.Id;
+                sqlCommand.Parameters.Add(pLocationId);
 
                 SqlParameter pStreetAddress = new SqlParameter();
                 pStreetAddress.ParameterName = "@street_address";
@@ -107,6 +112,12 @@ namespace MVCArchitecture.Models
                 pStateProvince.SqlDbType = System.Data.SqlDbType.VarChar;
                 pStateProvince.Value = location.State_Province;
                 sqlCommand.Parameters.Add(pStateProvince);
+
+                SqlParameter pCountryId = new SqlParameter();
+                pCountryId.ParameterName = "@country_id";
+                pCountryId.SqlDbType = System.Data.SqlDbType.Char;
+                pCountryId.Value = location.Country_Id;
+                sqlCommand.Parameters.Add(pCountryId);
 
                 int result = sqlCommand.ExecuteNonQuery();
 

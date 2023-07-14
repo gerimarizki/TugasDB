@@ -21,22 +21,22 @@ namespace MVCArchitecture.Controllers
 
         public void GetAll()
         {
-            var regionResult = _historyModel.GetAll();
-            if (regionResult.Count() is 0)
+            var historyResult = _historyModel.GetAll();
+            if (historyResult.Count() is 0)
             {
                 _historyView.DataEmpty();
             }
             else
             {
-                _historyView.GetAll(regionResult);
+                _historyView.GetAll(historyResult);
             }
         }
 
         public void Insert()
         {
-            var region = _historyView.InsertMenu();
+            var history = _historyView.InsertMenu();
 
-            var result = _historyModel.Insert(region);
+            var result = _historyModel.Insert(history);
             switch (result)
             {
                 case -1:
@@ -53,8 +53,8 @@ namespace MVCArchitecture.Controllers
 
         public void Update()
         {
-            var region = _historyView.UpdateMenu();
-            var result = _historyModel.Update(region);
+            var history = _historyView.UpdateMenu();
+            var result = _historyModel.Update(history);
 
             switch (result)
             {

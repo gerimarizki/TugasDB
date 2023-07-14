@@ -64,20 +64,21 @@ namespace MVCArchitecture.Views
 
         public Employee InsertMenu()
         {
-            string inputFirstName = Console.ReadLine();
             Console.WriteLine("Tambah First Name: ");
-            string inputLastName = Console.ReadLine();
+            string inputFirstName = Console.ReadLine();
             Console.WriteLine("Tambah Last Name: ");
-            string inputEmail = Console.ReadLine();
+            string inputLastName = Console.ReadLine();
             Console.WriteLine("Tambah Email: ");
-            string inputPhone = Console.ReadLine();
+            string inputEmail = Console.ReadLine();
             Console.WriteLine("Tambah Nomor HP: ");
-            DateTime inputHireDate = Helper.DateValidation();
+            string inputPhone = Console.ReadLine();
             Console.Write("Tambah Hire Date: ");
-            int inputSalary = Int32.Parse(Console.ReadLine());
+            DateTime inputHireDate = Helper.DateValidation();
             Console.WriteLine("Tambah Salary: ");
-            decimal inputComission = decimal.Parse(Console.ReadLine());
+            int inputSalary = Int32.Parse(Console.ReadLine());
             Console.WriteLine("Tambah Commision PCT: ");
+            decimal inputComission = decimal.Parse(Console.ReadLine());
+
 
             return new Employee
             {
@@ -94,22 +95,23 @@ namespace MVCArchitecture.Views
 
         public Employee UpdateMenu()
         {
-            int inputEmployeeId = Int32.Parse(Console.ReadLine());
             Console.WriteLine("Update Id");
-            string inputFirstName = Console.ReadLine();
+            int inputEmployeeId = Int32.Parse(Console.ReadLine());
             Console.WriteLine("Tambah First Name: ");
-            string inputLastName = Console.ReadLine();
+            string inputFirstName = Console.ReadLine();
             Console.WriteLine("Tambah Last Name: ");
-            string inputEmail = Console.ReadLine();
+            string inputLastName = Console.ReadLine();
             Console.WriteLine("Tambah Email: ");
-            string inputPhone = Console.ReadLine();
+            string inputEmail = Console.ReadLine();
             Console.WriteLine("Tambah Nomor HP: ");
-            DateTime inputHireDate = Helper.DateValidation();
+            string inputPhone = Console.ReadLine();
             Console.Write("Tambah Hire Date: ");
-            int inputSalary = Int32.Parse(Console.ReadLine());
+            DateTime inputHireDate = Helper.DateValidation();
             Console.WriteLine("Tambah Salary: ");
-            decimal inputComission = decimal.Parse(Console.ReadLine());
+            int inputSalary = Int32.Parse(Console.ReadLine());
             Console.WriteLine("Tambah Commision PCT: ");
+            decimal inputComission = decimal.Parse(Console.ReadLine());
+
 
             return new Employee
             {
@@ -126,8 +128,9 @@ namespace MVCArchitecture.Views
 
         public int DeleteMenu()
         {
-            int inputId = Convert.ToInt32(Console.ReadLine());
             Console.WriteLine("Hapus Employee Id: ");
+            int inputId = Convert.ToInt32(Console.ReadLine());
+    
 
             return inputId;
         }

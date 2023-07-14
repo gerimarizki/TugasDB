@@ -30,5 +30,50 @@ namespace MVCArchitecture
                 throw;
             }
         }
+
+        public class DBContext : IDisposable
+        {
+            private readonly string _connectionString;
+            private SqlConnection _connection;
+
+            public DBContext()
+            {
+                _connectionString = @"
+            Data Source=GERIMARIZKI;
+            Initial Catalog=Latihan;
+            Integrated Security=True";
+            }
+
+            public SqlConnection OpenConnection()
+            {
+                try
+                {
+                    _connection = new SqlConnection(_connectionString);
+                    _connection.Open();
+                    return _connection;
+                }
+                catch (SqlException e)
+                {
+                    Console.WriteLine(e);
+                    throw;
+                }
+            }
+
+            public void CloseConnection()
+            {
+                if (_connection != null && _connection.State == System.Data.ConnectionState.Open)
+                {
+                    _connection.Close();
+                    _connection.Dispose();
+                }
+            }
+
+            public void Dispose()
+            {
+                CloseConnection();
+            }
+        }
     }
+
+     
 }

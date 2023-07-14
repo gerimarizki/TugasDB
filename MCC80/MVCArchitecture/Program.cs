@@ -22,7 +22,8 @@ public class Program
         Console.WriteLine("5. Locations");
         Console.WriteLine("6. Countries");
         Console.WriteLine("7. Regions");
-        Console.WriteLine("8. Exit");
+        Console.WriteLine("8. Linq");
+        Console.WriteLine("9. Exit");
         Console.WriteLine("Pilih: ");
 
         try
@@ -74,6 +75,12 @@ public class Program
                     MainMenu();
                     break;
                 case 8:
+                    Console.WriteLine("8. Linq");
+                    Console.Clear();
+                    MenuLinq();
+                    MainMenu();
+                    break;
+                case 9:
                     Console.WriteLine("8. Exit");
                     Environment.Exit(0);
                     break;
@@ -87,6 +94,46 @@ public class Program
         {
             Console.WriteLine("Input Hanya diantara 1-7!");
             MainMenu();
+        }
+    }
+
+
+
+    public static void MenuLinq()
+    {
+
+        VLinq vLinq = new VLinq();
+
+        Console.WriteLine("Pilih menu Linq:");
+        Console.WriteLine("1. Tampilkan Join Data");
+        Console.WriteLine("2. Kembali ke Menu Utama");
+        Console.WriteLine("Pilih: ");
+
+        try
+        {
+            int pilihMenu = Int32.Parse(Console.ReadLine());
+
+            switch (pilihMenu)
+            {
+
+                case 1:
+                    vLinq.AllDataEmployee();
+                    MenuLinq();
+                    break;
+                case 2:
+                    Environment.Exit(0);
+                    MenuLinq();
+                    break;
+                default:
+                    Console.WriteLine("Silahkan Pilih Nomor 1-6");
+                    MenuRegion();
+                    break;
+            }
+        }
+        catch
+        {
+            Console.WriteLine("Input Hanya diantara 1-6!");
+            MenuLinq();
         }
     }
 

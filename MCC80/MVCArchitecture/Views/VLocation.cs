@@ -35,6 +35,7 @@ namespace MVCArchitecture.Views
             Console.WriteLine("Id: " + location.Id);
             Console.WriteLine("Street Address: " + location.Street_Address);
             Console.WriteLine("Postal Code: " + location.Postal_Code);
+            Console.WriteLine("City " + location.City);
             Console.WriteLine("State Province:" + location.State_Province);
             Console.WriteLine("Country ID: " + location.Country_Id);
         }
@@ -56,21 +57,28 @@ namespace MVCArchitecture.Views
 
         public Location InsertMenu()
         {
-            string inputStreetAddress = Console.ReadLine();
+            Console.WriteLine("Tambah Id");
+            int Id = Convert.ToInt32(Console.ReadLine());
             Console.WriteLine("Tambah StreetAddress: ");
-            string inputPostalCode = Console.ReadLine();
+            string inputStreetAddress = Console.ReadLine();
             Console.WriteLine("Tambah PostalCode: ");
-            string inputCity = Console.ReadLine();
+            string inputPostalCode = Console.ReadLine();
             Console.WriteLine("Tambah City: ");
+            string inputCity = Console.ReadLine();
+            Console.WriteLine("Tambah StateProvince: ");
             string inputStateProvince = Console.ReadLine();
-            Console.WriteLine("Tambah inputStateProvince: ");
+            Console.WriteLine("Tambah Country Id: ");
+            string inputCountryId = Console.ReadLine();
+
+
             return new Location
             {
-                Id = 0,
+                Id = Id,
                 Street_Address = inputStreetAddress,
                 Postal_Code = inputPostalCode,
                 City = inputCity,
-                State_Province = inputStateProvince
+                State_Province = inputStateProvince,
+                Country_Id = inputCountryId
 
             };
         }
@@ -78,14 +86,15 @@ namespace MVCArchitecture.Views
         public Location UpdateMenu()
         {
             int inputLocationId = Int32.Parse(Console.ReadLine());
-            string inputStreetAddress = Console.ReadLine();
             Console.WriteLine("Update StreetAddress: ");
-            string inputPostalCode = Console.ReadLine();
+            string inputStreetAddress = Console.ReadLine();
             Console.WriteLine("Update PostalCode: ");
-            string inputCity = Console.ReadLine();
+            string inputPostalCode = Console.ReadLine();
             Console.WriteLine("Update City: ");
-            string inputStateProvince = Console.ReadLine();
+            string inputCity = Console.ReadLine();
             Console.WriteLine("Update StateProvince: ");
+            string inputStateProvince = Console.ReadLine();
+
 
             return new Location
             {
@@ -99,8 +108,9 @@ namespace MVCArchitecture.Views
 
         public int DeleteMenu()
         {
-            int inputId = Convert.ToInt32(Console.ReadLine());
             Console.WriteLine("Hapus Location Id: ");
+            int inputId = Convert.ToInt32(Console.ReadLine());
+
 
             return inputId;
         }

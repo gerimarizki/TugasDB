@@ -58,10 +58,11 @@ namespace MVCArchitecture.Views
 
         public History InsertMenu()
         {
-            DateTime inputStartDate = Helper.DateValidation();
             Console.Write("StartDate : ");
-            DateTime inputEndDate = Helper.DateValidation();
+            DateTime inputStartDate = Helper.DateValidation();
             Console.Write("EndDate : ");
+            DateTime inputEndDate = Helper.DateValidation();
+
             return new History
             {
                 Start_Date = inputStartDate,
@@ -71,10 +72,11 @@ namespace MVCArchitecture.Views
 
         public History UpdateMenu()
         {
-            DateTime inputStartDate = Helper.DateValidation();
             Console.Write("StartDate : ");
-            DateTime inputEndDate = Helper.DateValidation();
+            DateTime inputStartDate = Helper.DateValidation();
             Console.Write("EndDate : ");
+            DateTime inputEndDate = Helper.DateValidation();
+
 
             return new History
             {
@@ -86,8 +88,9 @@ namespace MVCArchitecture.Views
 
         public DateTime DeleteMenu()
         {
-            DateTime inputId = Convert.ToDateTime(Console.ReadLine());
             Console.WriteLine("Hapus Start Date: ");
+            DateTime inputId = Convert.ToDateTime(Console.ReadLine());
+
 
             return inputId;
         }

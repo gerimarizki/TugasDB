@@ -55,12 +55,13 @@ namespace MVCArchitecture.Views
 
         public Job InsertMenu()
         {
-            string inputTitle = Console.ReadLine();
             Console.WriteLine("Tambah Title: ");
-            int inputMinSalary = Int32.Parse(Console.ReadLine());
+            string inputTitle = Console.ReadLine();
             Console.WriteLine("Tambah Min Salary: ");
-            int inputMaxSalary = Int32.Parse(Console.ReadLine());
+            int inputMinSalary = Int32.Parse(Console.ReadLine());
             Console.WriteLine("Tambah MaxSalary: ");
+            int inputMaxSalary = Int32.Parse(Console.ReadLine());
+
             return new Job
             {
                 Id = "",

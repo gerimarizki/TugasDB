@@ -56,22 +56,29 @@ namespace MVCArchitecture.Views
 
         public Department InsertMenu()
         {
-            string inputName = Console.ReadLine();
+            Console.WriteLine("Tambah Department ID: ");
+            int inputID = Convert.ToInt32(Console.ReadLine());
             Console.WriteLine("Tambah Department: ");
+            string inputName = Console.ReadLine();
+            Console.WriteLine("Tambah Location ID: ");
+            int inputLocation = Convert.ToInt32(Console.ReadLine());
+
             return new Department
             {
-                Id = 0,
-                Name = inputName
+                Id = inputID,
+                Name = inputName,
+                Location_Id = inputLocation
 
             };
         }
 
         public Department UpdateMenu()
         {
-            string inputName = Console.ReadLine();
             Console.WriteLine("Ganti Nama: ");
-            int inputId = Int32.Parse(Console.ReadLine());
+            string inputName = Console.ReadLine();
             Console.WriteLine("Ganti ID: ");
+            int inputId = Int32.Parse(Console.ReadLine());
+
 
             return new Department
             {
@@ -83,8 +90,9 @@ namespace MVCArchitecture.Views
 
         public int DeleteMenu()
         {
-            int inputId = Convert.ToInt32(Console.ReadLine());
             Console.WriteLine("Hapus Department Id: ");
+            int inputId = Convert.ToInt32(Console.ReadLine());
+  
 
             return inputId;
         }

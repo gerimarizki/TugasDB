@@ -21,22 +21,22 @@ namespace MVCArchitecture.Controllers
 
         public void GetAll()
         {
-            var regionResult = _locationModel.GetAll();
-            if (regionResult.Count() is 0)
+            var locationResult = _locationModel.GetAll();
+            if (locationResult.Count() is 0)
             {
                 _locationView.DataEmpty();
             }
             else
             {
-                _locationView.GetAll(regionResult);
+                _locationView.GetAll(locationResult);
             }
         }
 
         public void Insert()
         {
-            var region = _locationView.InsertMenu();
+            var location = _locationView.InsertMenu();
 
-            var result = _locationModel.Insert(region);
+            var result = _locationModel.Insert(location);
             switch (result)
             {
                 case -1:
@@ -53,8 +53,8 @@ namespace MVCArchitecture.Controllers
 
         public void Update()
         {
-            var region = _locationView.UpdateMenu();
-            var result = _locationModel.Update(region);
+            var location = _locationView.UpdateMenu();
+            var result = _locationModel.Update(location);
 
             switch (result)
             {
@@ -72,8 +72,8 @@ namespace MVCArchitecture.Controllers
 
         public void Delete()
         {
-            var region = _locationView.DeleteMenu();
-            var result = _locationModel.Delete(region);
+            var location = _locationView.DeleteMenu();
+            var result = _locationModel.Delete(location);
 
             switch (result)
             {

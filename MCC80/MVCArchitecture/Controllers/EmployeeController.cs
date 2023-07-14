@@ -21,22 +21,22 @@ namespace MVCArchitecture.Controllers
 
         public void GetAll()
         {
-            var regionResult = _employeeModel.GetAll();
-            if (regionResult.Count() is 0)
+            var employeeResult = _employeeModel.GetAll();
+            if (employeeResult.Count() is 0)
             {
                 _employeeView.DataEmpty();
             }
             else
             {
-                _employeeView.GetAll(regionResult);
+                _employeeView.GetAll(employeeResult);
             }
         }
 
         public void Insert()
         {
-            var region = _employeeView.InsertMenu();
+            var employee = _employeeView.InsertMenu();
 
-            var result = _employeeModel.Insert(region);
+            var result = _employeeModel.Insert(employee);
             switch (result)
             {
                 case -1:
@@ -53,8 +53,8 @@ namespace MVCArchitecture.Controllers
 
         public void Update()
         {
-            var region = _employeeView.UpdateMenu();
-            var result = _employeeModel.Update(region);
+            var employee = _employeeView.UpdateMenu();
+            var result = _employeeModel.Update(employee);
 
             switch (result)
             {
@@ -72,8 +72,8 @@ namespace MVCArchitecture.Controllers
 
         public void Delete()
         {
-            var region = _employeeView.DeleteMenu();
-            var result = _employeeModel.Delete(region);
+            var employee = _employeeView.DeleteMenu();
+            var result = _employeeModel.Delete(employee);
 
             switch (result)
             {

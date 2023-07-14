@@ -69,7 +69,7 @@ namespace MVCArchitecture.Models
 
             using SqlCommand sqlCommand = new SqlCommand();
             sqlCommand.Connection = _connection;
-            sqlCommand.CommandText = "INSERT INTO departments VALUES (@name)";
+            sqlCommand.CommandText = "INSERT INTO departments VALUES (@id), (@name), (@location_id)";
 
             _connection.Open();
             using SqlTransaction transaction = _connection.BeginTransaction();
@@ -78,12 +78,23 @@ namespace MVCArchitecture.Models
 
             try
             {
+                SqlParameter pDepartmentId = new SqlParameter();
+                pDepartmentId.ParameterName = "@id";
+                pDepartmentId.SqlDbType = System.Data.SqlDbType.Int;
+                pDepartmentId.Value = department.Id;
+                sqlCommand.Parameters.Add(pDepartmentId);
 
                 SqlParameter pName = new SqlParameter();
                 pName.ParameterName = "@name";
                 pName.SqlDbType = System.Data.SqlDbType.VarChar;
                 pName.Value = department.Name;
                 sqlCommand.Parameters.Add(pName);
+
+                SqlParameter pLocationtId = new SqlParameter();
+                pLocationtId.ParameterName = "@location_id";
+                pLocationtId.SqlDbType = System.Data.SqlDbType.Int;
+                pLocationtId.Value = department.Location_Id;
+                sqlCommand.Parameters.Add(pLocationtId);
 
                 int result = sqlCommand.ExecuteNonQuery();
 
